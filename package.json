@@ -1,0 +1,45 @@
+{
+  "name": "rich-text-editor",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "postinstall": "[ -z \"$HUSKY\" ] && husky install .husky || echo \"ignore husky\"",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "format": "prettier --write '**/*.{ts,tsx}'",
+    "type-check": "tsc --pretty --noEmit"
+  },
+  "lint-staged": {
+    "*.@(ts|tsx)": [
+      "yarn lint",
+      "yarn format"
+    ]
+  },
+  "dependencies": {
+    "@stitches/react": "^1.2.8",
+    "@types/node": "18.11.9",
+    "@types/react": "18.0.25",
+    "@types/react-dom": "18.0.9",
+    "eslint": "8.28.0",
+    "eslint-config-next": "13.0.5",
+    "next": "13.0.5",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "slate": "^0.86.0",
+    "slate-history": "^0.86.0",
+    "slate-react": "^0.86.0",
+    "typescript": "4.9.3"
+  },
+  "devDependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.2.1",
+    "@fortawesome/free-regular-svg-icons": "^6.2.1",
+    "@fortawesome/free-solid-svg-icons": "^6.2.1",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "eslint-config-prettier": "^8.5.0",
+    "husky": "^8.0.2",
+    "lint-staged": "^13.0.4",
+    "prettier": "^2.8.0"
+  }
+}
