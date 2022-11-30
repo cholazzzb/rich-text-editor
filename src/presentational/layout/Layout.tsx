@@ -1,12 +1,15 @@
 import Head from 'next/head';
 import { FunctionComponent, PropsWithChildren } from 'react';
+
 import styles from 'src/presentational/styles/Home.module.css';
 
 type LayoutProps = {};
 
-const Layout: FunctionComponent<PropsWithChildren<LayoutProps>> = (props) => {
+export const Layout: FunctionComponent<PropsWithChildren<LayoutProps>> = (
+  props,
+) => {
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
         <title>Rich Text Editor</title>
         <meta name="description" content="Rich Text Editor" />
@@ -17,5 +20,3 @@ const Layout: FunctionComponent<PropsWithChildren<LayoutProps>> = (props) => {
     </div>
   );
 };
-
-export default Layout;

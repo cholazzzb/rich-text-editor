@@ -9,6 +9,10 @@ export const mainStiches = createStitches({
       neutral100: 'rgba(185, 224, 255, 1)',
       red100: 'rgba(233,105,87, 1)',
       red90: 'rgba(233,105,87, 0.9)',
+      gray100: 'rgba(150, 150, 150, 1)',
+    },
+    zIndices: {
+      toolbar: 1,
     },
   },
   media: {
