@@ -4,16 +4,12 @@ import {
   faAlignLeft,
   faAlignRight,
   faBold,
-  faBolt,
-  faCheck,
-  faCircleInfo,
   faCode,
   faDiamond,
   faItalic,
   faListDots,
   faListNumeric,
   faUnderline,
-  faWarning,
 } from '@fortawesome/free-solid-svg-icons';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -29,8 +25,7 @@ import {
 } from 'slate-react';
 
 import { initialValue } from 'src/domains/doc/constants';
-import { Button, Spacer } from 'src/presentational/components';
-import { HoveringToolbar } from 'src/presentational/doc/HoveringToolbar';
+import { Spacer } from 'src/presentational/components';
 import {
   DocElementRenderer,
   DocLeafRenderer,
@@ -58,20 +53,6 @@ const Doc: FunctionComponent<DocProps> = ({}) => {
   return (
     <Layout>
       <Slate editor={editor} value={initialValue}>
-        <HoveringToolbar>
-          <Button>
-            <FontAwesomeIcon icon={faCircleInfo} size="1x" />
-          </Button>
-          <Button>
-            <FontAwesomeIcon icon={faCheck} size="1x" />
-          </Button>
-          <Button>
-            <FontAwesomeIcon icon={faWarning} size="1x" />
-          </Button>
-          <Button>
-            <FontAwesomeIcon icon={faBolt} size="1x" />
-          </Button>
-        </HoveringToolbar>
         <Toolbar>
           <Flex>
             <FontStyleButton
