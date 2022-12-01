@@ -19,5 +19,6 @@ const Wrapper = mainStiches.styled(Flex, {
   height: '50px',
   backgroundColor: '$primary100',
   alignItems: 'center',
+  justifyContent: 'space-between',
   paddingInlineStart: '5px',
 });

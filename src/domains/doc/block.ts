@@ -1,6 +1,13 @@
 import { BaseEditor, Editor, Element as SlateElement, Transforms } from 'slate';
 import { LIST_TYPES, TEXT_ALIGN_TYPES } from './constants';
-import { AlignText, List, ListElement, ParagraphElement } from './entity';
+import {
+  AlignText,
+  CardElement,
+  CardStyle,
+  List,
+  ListElement,
+  ParagraphElement,
+} from './entity';
 
 export const isAlignTextActive = (editor: BaseEditor, alignText: AlignText) => {
   const { selection } = editor;
@@ -76,15 +83,33 @@ export const toggleList = (editor: Editor, list: List) => {
     },
     split: true,
   });
-  if (LIST_TYPES[list]) {
-    const newProperties: Partial<ListElement> = {
-      type: isActive ? 'paragraph' : 'list-item',
-    };
-    Transforms.setNodes<SlateElement>(editor, newProperties);
-  }
+
+  const newProperties: Partial<ListElement | ParagraphElement> = {
+    type: isActive ? 'paragraph' : 'list-item',
+  };
+  Transforms.setNodes<SlateElement>(editor, newProperties);
 
   if (!isActive) {
     const block = { type: list, children: [] };
     Transforms.wrapNodes(editor, block);
   }
+};
+
+export const insertCard = (editor: Editor, cardStyle: CardStyle) => {
+  const card: CardElement = {
+    type: 'card',
+    cardStyle,
+    children: [
+      {
+        type: 'card-header',
+        text: 'Type Header Here...',
+      },
+      {
+        type: 'card-body',
+        text: 'Type Body Here...',
+      },
+    ],
+  };
+  Transforms.insertNodes(editor, card);
+  Transforms.move(editor);
 };

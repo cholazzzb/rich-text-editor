@@ -6,6 +6,13 @@ export const LIST_TYPES: Record<string, true> = {
   'bulleted-list': true,
 };
 
+export const CARD_TYPES: Record<string, true> = {
+  info: true,
+  success: true,
+  warning: true,
+  danger: true,
+};
+
 export const TEXT_ALIGN_TYPES: Record<string, true> = {
   left: true,
   center: true,

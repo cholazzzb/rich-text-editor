@@ -7,8 +7,11 @@ export const mainStiches = createStitches({
       secondary100: 'rgba(141, 114, 225, 1)',
       tertiary100: 'rgba(141, 158, 255, 1)',
       neutral100: 'rgba(185, 224, 255, 1)',
-      red100: 'rgba(233,105,87, 1)',
-      red90: 'rgba(233,105,87, 0.9)',
+      red100: 'rgba(233, 105, 87, 1)',
+      red90: 'rgba(233, 105, 87, 0.9)',
+      yellow100: 'rgba(253, 231, 76, 1)',
+      green100: 'rgba(97, 226, 148, 1)',
+      blue100: 'rgba(189, 255, 253, 1)',
       gray100: 'rgba(150, 150, 150, 1)',
     },
     zIndices: {

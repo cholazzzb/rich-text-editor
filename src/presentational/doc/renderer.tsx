@@ -1,55 +1,70 @@
 import { FunctionComponent } from 'react';
 import { RenderElementProps, RenderLeafProps } from 'slate-react';
-import { AlignText, FontStyle, List } from 'src/domains/doc/entity';
+import { DocElement, DocLeaf, FontStyle } from 'src/domains/doc/entity';
+import { Card, CardBody, CardHeader, CardSpacer } from './Card';
 
-type DocElement = RenderElementProps & {
-  element: Partial<{
-    align: AlignText;
-    type: 'list-item' | List;
-  }>;
-};
-export const DocElement: FunctionComponent<DocElement> = ({
+export const DocElementRenderer: FunctionComponent<RenderElementProps> = ({
   attributes,
   children,
   element,
 }) => {
-  const style = { textAlign: element.align };
-  switch (element.type) {
-    case 'list-item':
-      return (
-        <li style={style} {...attributes}>
-          {children}
-        </li>
-      );
-    case 'bulleted-list':
-      return (
-        <ul style={style} {...attributes}>
-          {children}
-        </ul>
-      );
-    case 'numbered-list':
-      return (
-        <ol style={style} {...attributes}>
-          {children}
-        </ol>
-      );
-    default:
-      return (
-        <p style={style} {...attributes}>
-          {children}
-        </p>
-      );
+  const el = element as DocElement;
+  if (el?.type) {
+    switch (el.type) {
+      case 'list-item':
+        return <li {...attributes}>{children}</li>;
+      case 'bulleted-list':
+        return <ul {...attributes}>{children}</ul>;
+      case 'numbered-list':
+        return <ol {...attributes}>{children}</ol>;
+
+      case 'card': {
+        return <Card cardStyle={el.cardStyle}>{children}</Card>;
+      }
+
+      case 'paragraph': {
+        const style = { textAlign: el.align };
+
+        return (
+          <p style={style} {...attributes}>
+            {children}
+          </p>
+        );
+      }
+      default: {
+        return <></>;
+      }
+    }
   }
+
+  return <></>;
 };
 
-type DocLeafProps = RenderLeafProps & {
+type DocLeafRendererProps = RenderLeafProps & {
   leaf: Partial<Record<FontStyle, true>>;
 };
-export const DocLeaf: FunctionComponent<DocLeafProps> = ({
+export const DocLeafRenderer: FunctionComponent<DocLeafRendererProps> = ({
   attributes,
   children,
   leaf,
 }) => {
+  const docLeaf = leaf as DocLeaf;
+  if (docLeaf?.type) {
+    switch (docLeaf.type) {
+      case 'card-header': {
+        return <CardHeader>{children}</CardHeader>;
+      }
+      case 'card-body': {
+        return (
+          <>
+            <CardSpacer />
+            <CardBody>{children}</CardBody>
+          </>
+        );
+      }
+    }
+  }
+
   if (leaf.bold) {
     children = <strong>{children}</strong>;
   }

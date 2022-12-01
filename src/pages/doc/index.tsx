@@ -4,11 +4,16 @@ import {
   faAlignLeft,
   faAlignRight,
   faBold,
+  faBolt,
+  faCheck,
+  faCircleInfo,
   faCode,
+  faDiamond,
   faItalic,
   faListDots,
   faListNumeric,
   faUnderline,
+  faWarning,
 } from '@fortawesome/free-solid-svg-icons';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -24,11 +29,17 @@ import {
 } from 'slate-react';
 
 import { initialValue } from 'src/domains/doc/constants';
-import { Spacer } from 'src/presentational/components';
-import { DocElement, DocLeaf } from 'src/presentational/doc/renderer';
+import { Button, Spacer } from 'src/presentational/components';
+import { HoveringToolbar } from 'src/presentational/doc/HoveringToolbar';
+import {
+  DocElementRenderer,
+  DocLeafRenderer,
+} from 'src/presentational/doc/renderer';
 import AlignTextButton from 'src/presentational/doc/toolbar/AlignTextButton';
+import CardButton from 'src/presentational/doc/toolbar/CardButton';
 import FontStyleButton from 'src/presentational/doc/toolbar/FontStyleButton';
 import ListButton from 'src/presentational/doc/toolbar/ListButton';
+import { Flex } from 'src/presentational/layout/common';
 import { Layout } from 'src/presentational/layout/Layout';
 import Toolbar from 'src/presentational/layout/Toolbar';
 
@@ -36,61 +47,83 @@ type DocProps = {};
 
 const Doc: FunctionComponent<DocProps> = ({}) => {
   const renderElement = useCallback(
-    (props: RenderElementProps) => <DocElement {...props} />,
+    (props: RenderElementProps) => <DocElementRenderer {...props} />,
     [],
   );
   const renderLeaf = useCallback(
-    (props: RenderLeafProps) => <DocLeaf {...props} />,
+    (props: RenderLeafProps) => <DocLeafRenderer {...props} />,
     [],
   );
   const editor = useMemo(() => withHistory(withReact(createEditor())), []);
   return (
     <Layout>
       <Slate editor={editor} value={initialValue}>
+        <HoveringToolbar>
+          <Button>
+            <FontAwesomeIcon icon={faCircleInfo} size="1x" />
+          </Button>
+          <Button>
+            <FontAwesomeIcon icon={faCheck} size="1x" />
+          </Button>
+          <Button>
+            <FontAwesomeIcon icon={faWarning} size="1x" />
+          </Button>
+          <Button>
+            <FontAwesomeIcon icon={faBolt} size="1x" />
+          </Button>
+        </HoveringToolbar>
         <Toolbar>
-          <FontStyleButton
-            fontStyle="bold"
-            icon={<FontAwesomeIcon icon={faBold} size="1x" />}
-          />
-          <FontStyleButton
-            fontStyle="italic"
-            icon={<FontAwesomeIcon icon={faItalic} size="1x" />}
-          />
-          <FontStyleButton
-            fontStyle="underline"
-            icon={<FontAwesomeIcon icon={faUnderline} size="1x" />}
-          />
-          <FontStyleButton
-            fontStyle="code"
-            icon={<FontAwesomeIcon icon={faCode} size="1x" />}
-          />
-          <Spacer />
-          <ListButton
-            list="numbered-list"
-            icon={<FontAwesomeIcon icon={faListNumeric} size="2x" />}
-          />
-          <ListButton
-            list="bulleted-list"
-            icon={<FontAwesomeIcon icon={faListDots} size="2x" />}
-          />
-          <Spacer />
-
-          <AlignTextButton
-            alignText="left"
-            icon={<FontAwesomeIcon icon={faAlignLeft} size="2x" />}
-          />
-          <AlignTextButton
-            alignText="center"
-            icon={<FontAwesomeIcon icon={faAlignCenter} size="2x" />}
-          />
-          <AlignTextButton
-            alignText="right"
-            icon={<FontAwesomeIcon icon={faAlignRight} size="2x" />}
-          />
-          <AlignTextButton
-            alignText="justify"
-            icon={<FontAwesomeIcon icon={faAlignJustify} size="2x" />}
-          />
+          <Flex>
+            <FontStyleButton
+              fontStyle="bold"
+              icon={<FontAwesomeIcon icon={faBold} size="1x" />}
+            />
+            <FontStyleButton
+              fontStyle="italic"
+              icon={<FontAwesomeIcon icon={faItalic} size="1x" />}
+            />
+            <FontStyleButton
+              fontStyle="underline"
+              icon={<FontAwesomeIcon icon={faUnderline} size="1x" />}
+            />
+            <FontStyleButton
+              fontStyle="code"
+              icon={<FontAwesomeIcon icon={faCode} size="1x" />}
+            />
+            <Spacer />
+            <ListButton
+              list="numbered-list"
+              icon={<FontAwesomeIcon icon={faListNumeric} size="2x" />}
+            />
+            <ListButton
+              list="bulleted-list"
+              icon={<FontAwesomeIcon icon={faListDots} size="2x" />}
+            />
+            <Spacer />
+            <AlignTextButton
+              alignText="left"
+              icon={<FontAwesomeIcon icon={faAlignLeft} size="2x" />}
+            />
+            <AlignTextButton
+              alignText="center"
+              icon={<FontAwesomeIcon icon={faAlignCenter} size="2x" />}
+            />
+            <AlignTextButton
+              alignText="right"
+              icon={<FontAwesomeIcon icon={faAlignRight} size="2x" />}
+            />
+            <AlignTextButton
+              alignText="justify"
+              icon={<FontAwesomeIcon icon={faAlignJustify} size="2x" />}
+            />
+          </Flex>
+          <Flex>
+            <CardButton
+              cardStyle="info"
+              icon={<FontAwesomeIcon icon={faDiamond} />}
+              label="Card"
+            />
+          </Flex>
         </Toolbar>
         <Editable
           renderElement={renderElement}
